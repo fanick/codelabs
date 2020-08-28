@@ -26,10 +26,10 @@ RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
 RUN cp -r dist/* /app/dist
-WORKDIR /app
+
 RUN unlink dist/codelabs
 RUN mkdir -p dist/codelabs
-RUN cp -r /app/data/* /app/dist/codelabs/
+RUN cp -r /codelabs/* dist/codelabs/
 
 FROM nginx:alpine as nginx
 #!/bin/sh
