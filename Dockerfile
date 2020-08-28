@@ -13,9 +13,10 @@ RUN \
     done
 
 FROM alpine as alpine
-RUN apk add --no-cache bash git nodejs npm nginx
+RUN apk add --no-cache bash git nodejs npm
 WORKDIR /app
 RUN mkdir -p /app/data
+RUN mkdir -p /app/dist
 RUN git clone https://github.com/googlecodelabs/tools
 RUN mkdir -p /app/tools/site/codelabs
 COPY --from=go /app/data/* /app/tools/site/codelabs/
@@ -24,13 +25,16 @@ RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
+RUN cp -r dist/* /app/dist
+WORKDIR /app
 RUN unlink dist/codelabs
 RUN mkdir -p dist/codelabs
-RUN cp -r codelabs/* dist/codelabs/
+RUN cp -r data/* dist/codelabs/
 
-FROM nginx as app-nginx
+FROM nginx:alpine as nginx
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=alpine /app/tools/site/dist/* /usr/share/nginx/html/
+COPY --from=alpine /app/dist/* /usr/share/nginx/html/
+RUN ls -ailh /usr/share/nginx/html/
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
