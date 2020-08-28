@@ -26,7 +26,7 @@ RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
 RUN unlink dist/codelabs
 RUN mkdir -p dist/codelabs
-RUN cp -r /app/data/* dist/codelabs
+RUN cp -r codelabs/* dist/codelabs/
 
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
