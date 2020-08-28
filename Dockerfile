@@ -1,6 +1,10 @@
-FROM ubuntu:20.04 as ubuntu
+FROM blang/golang-alpine as go
 USER root
-RUN apt update
-RUN apt install -y git
-RUN snap install --classic go
-RUN go version
+RUN apk add --no-cache bash git 
+WORKDIR /app
+
+RUN git clone https://github.com/googlecodelabs/tools
+RUN git clone https://github.com/fanick/codelabs.git
+RUN go get github.com/googlecodelabs/tools/claat
+
+RUN ls -ailh /app
