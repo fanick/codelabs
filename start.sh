@@ -4,4 +4,5 @@ docker build --no-cache -t webapp .
 docker system prune -f
 docker rmi golang:alpine
 docker rmi alpin:latest
+docker rmi nginx:latest
 docker run -d --name demo -p 80:80 webapp

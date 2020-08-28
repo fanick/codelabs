@@ -28,8 +28,9 @@ RUN unlink dist/codelabs
 RUN mkdir -p dist/codelabs
 RUN cp -r codelabs/* dist/codelabs/
 
+FROM nginx as app-nginx
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
-RUN cp -r dist/* /usr/share/nginx/html/
+COPY --from=alpine /app/tools/site/dist/* /usr/share/nginx/html/
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
