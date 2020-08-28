@@ -1,4 +1,4 @@
-FROM golang as go
+FROM golang:alpine as go
 USER root
 RUN apk add --no-cache bash git 
 WORKDIR /app
