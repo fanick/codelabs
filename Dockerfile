@@ -24,4 +24,4 @@ RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
-RUN ls -ailh dest
+RUN ls -ailh dist
