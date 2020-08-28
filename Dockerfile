@@ -30,6 +30,6 @@ RUN cp -r codelabs/* dist/codelabs/
 
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=app-node /app/tools/site/dist/* /usr/share/nginx/html/
+RUN cp -r dist/* /usr/share/nginx/html/
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
