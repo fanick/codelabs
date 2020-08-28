@@ -27,14 +27,14 @@ RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
 RUN cp -r dist/* /app/dist
 
-RUN unlink dist/codelabs
-RUN mkdir -p dist/codelabs
-RUN cp -r /codelabs/* dist/codelabs/
+RUN unlink /app/tools/site/dist/codelabs
+RUN mkdir -p /app/tools/site/dist/codelabs
+RUN cp -r /app/tools/site/codelabs/* /app/tools/site/dist/codelabs/
 
 FROM nginx:alpine as nginx
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=alpine /app/dist/* /usr/share/nginx/html/
+COPY --from=alpine /app/tools/site/dist/* /usr/share/nginx/html/
 RUN ls -ailh /usr/share/nginx/html/
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
