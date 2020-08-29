@@ -28,10 +28,6 @@ RUN gulp dist --codelabs-dir=cnss
 RUN ls -ailh dist
 RUN cp -r dist/* /app/dist
 
-RUN unlink /app/tools/site/dist/cnss
-RUN mkdir -p /app/tools/site/dist/cnss
-RUN cp -r /app/tools/site/cnss/* /app/tools/site/dist/cnss/
-
 FROM nginx:alpine as nginx
 #!/bin/sh
 RUN rm -rf /usr/share/nginx/html/*
