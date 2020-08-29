@@ -25,6 +25,7 @@ RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
+RUN ls -ailh dist
 RUN cp -r dist/* /app/dist
 
 RUN unlink /app/tools/site/dist/codelabs
