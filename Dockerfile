@@ -18,19 +18,19 @@ WORKDIR /app
 RUN mkdir -p /app/data
 RUN mkdir -p /app/dist
 RUN git clone https://github.com/googlecodelabs/tools
-RUN mkdir -p /app/tools/site/codelabs
-COPY --from=go /app/data/* /app/tools/site/codelabs/
+RUN mkdir -p /app/tools/site/cnss
+COPY --from=go /app/data/* /app/tools/site/cnss/
 WORKDIR /app/tools/site
 RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
-RUN gulp dist --codelabs-dir=codelabs
+RUN gulp dist --codelabs-dir=cnss
 RUN ls -ailh dist
 RUN cp -r dist/* /app/dist
 
-RUN unlink /app/tools/site/dist/codelabs
-RUN mkdir -p /app/tools/site/dist/codelabs
-RUN cp -r /app/tools/site/codelabs/* /app/tools/site/dist/codelabs/
+RUN unlink /app/tools/site/dist/cnss
+RUN mkdir -p /app/tools/site/dist/cnss
+RUN cp -r /app/tools/site/cnss/* /app/tools/site/dist/cnss/
 
 FROM nginx:alpine as nginx
 #!/bin/sh
