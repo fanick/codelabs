@@ -1,6 +1,6 @@
 #!/bin/sh
 docker stop demo
-docker build --no-cache -t webapp .
+docker build -t webapp .
 docker system prune -f
 docker rmi golang:alpine
 docker rmi alpine:latest
