@@ -23,7 +23,8 @@ RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
-RUN cp -r /app/tools/site/dist /var/www/
+RUN cp -r /app/tools/site/dist/* /var/www/
+RUN  ls -ailh /var/www
 COPY --from=go /app/codelabs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
