@@ -14,7 +14,7 @@ RUN \
     done
 
 FROM node:stretch as node
-RUN apk add --no-cache bash git 
+RUN apk add --no-cache git 
 WORKDIR /app
 RUN git clone https://github.com/googlecodelabs/tools
 WORKDIR /app/tools/site
