@@ -15,9 +15,9 @@ FROM alpine as alpine
 RUN apk add --no-cache bash git nodejs npm nginx
 WORKDIR /app
 RUN git clone https://github.com/googlecodelabs/tools
-RUN mkdir -p /var/www/codelabs
 
 WORKDIR /app/tools/site
+RUN mkdir -p /var/www/codelabs
 RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
