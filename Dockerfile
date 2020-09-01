@@ -16,7 +16,7 @@ RUN \
 FROM node:stretch as node
 WORKDIR /app
 RUN mkdir -p /app/tools
-COPY --from=go /app/tools/* tools/
+COPY --from=go /app/tools/* /app/tools/
 
 WORKDIR /app/tools/site
 RUN mkdir -p codelabs
