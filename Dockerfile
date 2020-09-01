@@ -15,8 +15,6 @@ RUN \
     done
 
 FROM node:stretch as node
-RUN apk add --no-cache npm 
-
 WORKDIR /app
 RUN mkdir -p /app/tools
 RUN mkdir -p /app/tools/site/codelabs
