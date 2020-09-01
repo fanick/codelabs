@@ -14,7 +14,7 @@ RUN \
     claat export -o /tmp/codelabs $f;\
     done
 
-FROM node:stretch as node
+FROM node:stretch as nodeapp
 WORKDIR /app
 RUN mkdir -p /app/tools
 RUN mkdir -p /app/tools/site/codelabs
@@ -30,7 +30,7 @@ RUN gulp dist --codelabs-dir=codelabs
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
 RUN mkdir -p /usr/share/nginx/html/dist/
-COPY --from=node /app/tools/site/dist/* /usr/share/nginx/html/dist/
+COPY --from=nodeapp /app/tools/site/dist/* /usr/share/nginx/html/dist/
 RUN ls -ailh /usr/share/nginx/html/
 COPY --from=goapp /app/codelabs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
