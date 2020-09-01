@@ -14,9 +14,10 @@ RUN \
     done
 
 FROM node:stretch as node
-RUN apk add --no-cache git 
 WORKDIR /app
-RUN git clone https://github.com/googlecodelabs/tools
+RUN mkdir -p /app/tools
+COPY --from=go /app/tools/* tools/
+
 WORKDIR /app/tools/site
 RUN mkdir -p codelabs
 COPY --from=go /tmp/codelabs/* codelabs/
