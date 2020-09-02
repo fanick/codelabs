@@ -29,8 +29,7 @@ RUN ls -ailh
 
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
-RUN mkdir -p /usr/share/nginx/html/dist/
-COPY --from=nodeapp /app/tools/site/dist/ /usr/share/nginx/html/dist
+COPY --from=nodeapp /app/tools/site/dist/ /usr/share/nginx/html/
 RUN ls -ailh /usr/share/nginx/html/
 COPY --from=goapp /app/codelabs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
