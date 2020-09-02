@@ -20,12 +20,14 @@ RUN mkdir -p /app/tools
 RUN mkdir -p /app/tools/site/codelabs
 COPY --from=goapp /app/tools/* /app/tools/
 WORKDIR /app/tools/site
+RUN ls -ailh 
 COPY --from=goapp /tmp/codelabs/* /app/tools/codelabs/
 # install
 RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
+RUN ls -ailh dist 
 
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
