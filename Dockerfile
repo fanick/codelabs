@@ -6,28 +6,26 @@ RUN git clone https://github.com/fanick/codelabs.git
 RUN git clone https://github.com/googlecodelabs/tools
 RUN go get github.com/googlecodelabs/tools/claat
 RUN mkdir -p /app/tools/site/codelabs
-RUN mkdir -p /tmp/codelabs
 
 RUN \
     cd /app/codelabs/markdown &&\
     for f in *.md ; do\
-    claat export -o /tmp/codelabs $f;\
+    claat export -o /app/tools/site/codelabs $f;\
     done
 
 FROM node:stretch as nodeapp
 WORKDIR /app
 RUN mkdir -p /app/tools
 RUN mkdir -p /app/tools/site/codelabs
-COPY --from=goapp /app/tools/* /app/tools/
+COPY --from=goapp /app/tools/site/* /app/tools/
 WORKDIR /app/tools/site
 RUN ls -ailh 
-COPY --from=goapp /tmp/codelabs/* /app/tools/codelabs/
 # install
 RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
-RUN ls -ailh dist 
+RUN ls -ailh  
 
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
