@@ -14,10 +14,10 @@ RUN \
     done
 
 FROM node:stretch as nodeapp
-WORKDIR /folder
-COPY --from=goapp /app/tools /folder/
+WORKDIR /app
+COPY --from=goapp /app/tools /app/
 RUN ls -ailh 
-WORKDIR /folder/tools/site
+WORKDIR /app/tools/site
 RUN ls -ailh 
 # install
 RUN npm install > /dev/null
