@@ -16,8 +16,7 @@ RUN \
 FROM node:stretch as nodeapp
 WORKDIR /app
 RUN mkdir -p /app/tools
-RUN mkdir -p /app/tools/site/codelabs
-COPY --from=goapp /app/tools/site/* /app/tools/
+COPY --from=goapp /app/tools/* /app/tools/
 WORKDIR /app/tools/site
 RUN ls -ailh 
 # install
