@@ -17,15 +17,12 @@ FROM node:stretch as nodeapp
 WORKDIR /app
 RUN mkdir -p /app/tools
 COPY --from=goapp /app/tools/ /app/tools
-RUN ls -ailh 
 WORKDIR /app/tools/site
-RUN ls -ailh 
 # install
 RUN npm install > /dev/null
 RUN npm install -g gulp-cli > /dev/null
 RUN npm audit fix --force > /dev/null
 RUN gulp dist --codelabs-dir=codelabs
-RUN ls -ailh  
 
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
@@ -33,7 +30,6 @@ COPY --from=nodeapp /app/tools/site/dist/ /usr/share/nginx/html/
 RUN unlink /usr/share/nginx/html/codelabs
 RUN mkdir -p /usr/share/nginx/html/codelabs
 COPY --from=nodeapp /app/tools/site/codelabs/ /usr/share/nginx/html/codelabs
-RUN ls -ailh /usr/share/nginx/html/
 COPY --from=goapp /app/codelabs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
