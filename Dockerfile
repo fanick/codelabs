@@ -6,7 +6,6 @@ RUN git clone https://github.com/fanick/codelabs.git
 RUN git clone https://github.com/googlecodelabs/tools
 RUN go get github.com/googlecodelabs/tools/claat
 RUN mkdir -p /app/tools/site/codelabs
-
 RUN \
     cd /app/codelabs/markdown &&\
     for f in *.md ; do\
