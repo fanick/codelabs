@@ -15,7 +15,8 @@ RUN \
 
 FROM node:stretch as nodeapp
 WORKDIR /app
-COPY --from=goapp /app/tools /app/
+RUN mkdir -p /app/tools
+COPY --from=goapp /app/tools/ /app/tools
 RUN ls -ailh 
 WORKDIR /app/tools/site
 RUN ls -ailh 
