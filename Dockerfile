@@ -14,10 +14,10 @@ RUN \
     done
 
 FROM node:stretch as nodeapp
-WORKDIR /app
-COPY --from=goapp /app/tools /app
-RUN ls -ailh tools
-WORKDIR /app/tools/site
+WORKDIR /folder
+COPY --from=goapp /app/tools /folder/
+RUN ls -ailh 
+WORKDIR /folder/tools/site
 RUN ls -ailh 
 # install
 RUN npm install > /dev/null
@@ -29,7 +29,7 @@ RUN ls -ailh
 FROM nginx:latest as nginx
 RUN rm -rf /usr/share/nginx/html/*
 RUN mkdir -p /usr/share/nginx/html/dist/
-COPY --from=nodeapp /app/tools/site/dist/* /usr/share/nginx/html/dist/
+COPY --from=nodeapp /folder/tools/site/dist/* /usr/share/nginx/html/dist/
 RUN ls -ailh /usr/share/nginx/html/
 COPY --from=goapp /app/codelabs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
