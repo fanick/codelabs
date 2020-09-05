@@ -3,12 +3,13 @@ kind: Service
 metadata:
   name: codelabs
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 8080
+  type: NodePort
   selector:
     app: codelabs
+  ports:
+    - port: 80
+      targetPort: 30007
+      nodePort: 30007
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,7 +26,7 @@ spec:
         app: codelabs
     spec:
       containers:
-      - name: codelabs
-        image: fanickarthis/webapp:0.0.1
-        ports:
-        - containerPort: 8080
+        - name: codelabs
+          image: fanickarthis/webapp:0.0.1
+          ports:
+            - containerPort: 30007
