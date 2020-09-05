@@ -3,13 +3,18 @@ kind: Service
 metadata:
   name: codelabs
 spec:
-  type: NodePort
   selector:
     app: codelabs
   ports:
-    - port: 80
-      targetPort: 30007
-      nodePort: 30007
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  clusterIP: 10.97.130.151
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.0.20
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,4 +34,4 @@ spec:
         - name: codelabs
           image: fanickarthis/webapp:0.0.1
           ports:
-            - containerPort: 30007
+            - containerPort: 80
