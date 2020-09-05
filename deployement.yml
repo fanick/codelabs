@@ -26,6 +26,6 @@ spec:
     spec:
       containers:
       - name: codelabs
-        image: fanickarthis/webapp:tagname
+        image: fanickarthis/webapp:0.0.1
         ports:
         - containerPort: 8080
